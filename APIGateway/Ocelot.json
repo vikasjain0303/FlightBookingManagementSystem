@@ -1,0 +1,100 @@
+{
+  "Routes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/User/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44393
+      //  }
+      //],
+      "ServiceName": "userService",
+      "UpstreamPathTemplate": "/flight/admin/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/airline/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44382
+      //  }
+      //],
+      "ServiceName": "flightService",
+      "UpstreamPathTemplate": "/flight/AirLine/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/airport/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44382
+      //  }
+      //],
+      "ServiceName": "flightService",
+      "UpstreamPathTemplate": "/flight/Airport/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Flight/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44382
+      //  }
+      //],
+      "ServiceName": "flightService",
+      "UpstreamPathTemplate": "/flight/Flight/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/FlightSchedule/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44382
+      //  }
+      //],
+      "ServiceName": "flightService",
+      "UpstreamPathTemplate": "/flight/FlightSchedule/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Booking/{method}",
+      "DownstreamScheme": "https",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44378
+      //  }
+      //],
+      "ServiceName": "bookingService",
+      "UpstreamPathTemplate": "/flight/Booking/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    //"BaseUrl": "https://localhost:44327"
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": "8500",
+      "Type": "Consul"
+    }
+  }
+    //"GlobalConfiguration": {
+    //  "RequestIdKey": "OcRequestId",
+    //  "AdministrationPath": "/administration"
+    //}
+  }
