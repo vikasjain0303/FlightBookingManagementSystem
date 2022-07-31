@@ -7,6 +7,11 @@ namespace FlightManagementMicroService.Models
 {
     public partial class UserMaster
     {
+        public UserMaster()
+        {
+            BookingDetails = new HashSet<BookingDetail>();
+        }
+
         public int UserId { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
@@ -20,5 +25,6 @@ namespace FlightManagementMicroService.Models
         public int? LastUpdatedBy { get; set; }
 
         public virtual RoleTypeMaster Role { get; set; }
+        public virtual ICollection<BookingDetail> BookingDetails { get; set; }
     }
 }

@@ -149,6 +149,11 @@ namespace FlightManagementMicroService.Models
                     .WithMany(p => p.BookingDetailSources)
                     .HasForeignKey(d => d.SourceId)
                     .HasConstraintName("FK__BookingDe__Sourc__5FB337D6");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BookingDetails)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__BookingDe__UserI__719CDDE7");
             });
 
             modelBuilder.Entity<DiscountMaster>(entity =>

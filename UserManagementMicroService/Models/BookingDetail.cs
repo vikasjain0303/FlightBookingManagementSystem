@@ -32,6 +32,7 @@ namespace UserManagementMicroService.Models
         public int? LastUpdatedBy { get; set; }
         public bool? IsActive { get; set; }
         public string BookingStatus { get; set; }
+        public int? UserId { get; set; }
 
         public virtual AirLineMaster AirLine { get; set; }
         public virtual AirportMaster Destination { get; set; }
@@ -40,6 +41,7 @@ namespace UserManagementMicroService.Models
         public virtual FlightScheduleDay FlightScheduleDay { get; set; }
         public virtual SeatTypeMaster SeatType { get; set; }
         public virtual AirportMaster Source { get; set; }
+        public virtual UserMaster User { get; set; }
         public virtual ICollection<PassengerDetail> PassengerDetails { get; set; }
     }
 }
