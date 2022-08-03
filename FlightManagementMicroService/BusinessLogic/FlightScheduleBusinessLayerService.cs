@@ -19,9 +19,9 @@ namespace FlightManagementMicroService.BusinessLogic
             this.IflightScheduleDataAccessLayerService = _IFlightScheduleDataAccessLayerService;
         }
 
-        public List<FlightSchedule> getAllFlightSchedule()
+        public List<FlightScheduleViewModelcs> getAllFlightSchedule()
         {
-            List<FlightSchedule> userlist = new List<FlightSchedule>();
+            List<FlightScheduleViewModelcs> userlist = new List<FlightScheduleViewModelcs>();
 
             userlist = IflightScheduleDataAccessLayerService.getAllFlightSchedule();
             return userlist;

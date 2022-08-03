@@ -39,7 +39,7 @@ namespace FlightManagementMicroService.Controllers
                 var result = _IairPortBusinessLayerService.AddAirPort(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("Airport added Successfully");
+                    return Ok();
 
                 }
                 else

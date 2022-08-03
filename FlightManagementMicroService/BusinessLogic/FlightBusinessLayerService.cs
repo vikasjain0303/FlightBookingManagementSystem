@@ -18,9 +18,9 @@ namespace FlightManagementMicroService.BusinessLogic
             this.IFlightMasterDataAccessLayerService = _IFlightMasterDataAccessLayerService;
         }
 
-        public List<FlightMaster> getAllFlight()
+        public List<FlightMasterViewModel> getAllFlight()
         {
-            List<FlightMaster> userlist = new List<FlightMaster>();
+            List<FlightMasterViewModel> userlist = new List<FlightMasterViewModel>();
 
             userlist = IFlightMasterDataAccessLayerService.getAllFlight();
             return userlist;

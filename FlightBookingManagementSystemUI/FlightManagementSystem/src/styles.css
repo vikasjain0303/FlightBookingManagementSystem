@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+div.table-wrapper {
+    border: 1px solid #ccc;
+    height: 400px;
+    width: 100%;
+    overflow-y: auto;
+   }
+   
+   table {
+     width: 100%;
+   }
+   table thead tr th {
+     text-align: left;
+     position: sticky;
+     top: 0px;
+     background-color: #212529;
+     color: #fff;
+   }
+
+   .center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }

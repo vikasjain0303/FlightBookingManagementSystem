@@ -22,9 +22,9 @@ namespace FlightManagementMicroService.Controllers
         }
 
         [HttpGet("getall")]
-        public async Task<ActionResult<List<FlightMaster>>> getallFlightDetails()
+        public async Task<ActionResult<List<FlightMasterViewModel>>> getallFlightDetails()
         {
-            List<FlightMaster> userlist = new List<FlightMaster>();
+            List<FlightMasterViewModel> userlist = new List<FlightMasterViewModel>();
 
             userlist = _IflightBusinessLayerService.getAllFlight();
             // var jsonresult = JsonSerializer.Serialize(userlist);
@@ -38,7 +38,7 @@ namespace FlightManagementMicroService.Controllers
                 var result = _IflightBusinessLayerService.AddFlight(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("Flight added Successfully");
+                    return Ok();
 
                 }
                 else
@@ -93,5 +93,7 @@ namespace FlightManagementMicroService.Controllers
                 return BadRequest(ex);
             }
         }
+
+        
     }
 }

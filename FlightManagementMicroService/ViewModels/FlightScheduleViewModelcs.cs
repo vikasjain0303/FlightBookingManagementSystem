@@ -15,8 +15,12 @@ namespace FlightManagementMicroService.ViewModels
         //}
         public int FlightScheduleId { get; set; }
         public int? FlightId { get; set; }
+        public string FlightCode { get; set; }
+        public string AirlineName { get; set; }
+        public string SourceName { get; set; }
         public int? SourceId { get; set; }
         public int? DestinationId { get; set; }
+        public string DestinationName { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool? IsActive { get; set; }
@@ -25,6 +29,7 @@ namespace FlightManagementMicroService.ViewModels
         //public DateTime? LastUpdatedOn { get; set; }
         //public int? LastUpdatedBy { get; set; }
         public string WeekdaysIds { get; set; }
+        public string WeekdaysNames { get; set; }
 
         //flightscheduleday
         public int? FlightScheduleDayId { get; set; }

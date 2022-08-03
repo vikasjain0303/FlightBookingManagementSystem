@@ -31,6 +31,7 @@ namespace FlightManagementMicroService.Controllers
             return Ok(userlist);
         }
         [HttpPost("add")]
+        //[Authorize]
         public async Task<ActionResult<string>> addAirLineDetails(AirLineMasterViewModel userMasterViewModel)
         {
             try
@@ -38,17 +39,17 @@ namespace FlightManagementMicroService.Controllers
                 var result = _IairLineBusinessLayerService.AddAirLine(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("AirLine added Successfully");
+                    return Ok();
 
                 }
                 else
                 {
-                    return BadRequest("AirLine not added Succesfully");
+                    return BadRequest("Error");
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest("Error");
             }
         }
         [HttpPut("update")]

@@ -41,6 +41,13 @@ namespace BookingManagementMicroservice
             services.AddScoped<IBookingDetailsBusinessLayerService, BookingDetailsBusinessLayerService>();
             services.AddDbContext<FlightBookingDBContext>(x => x.UseSqlServer(Configuration.GetConnectionString("BookingDBConection")));
             services.AddConsulConfig(Configuration);
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,6 +79,8 @@ namespace BookingManagementMicroservice
             app.UseHttpsRedirection();
             app.UseConsul(Configuration);
             app.UseRouting();
+            app.UseCors("AllowOrigin");
+
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseAuthentication();

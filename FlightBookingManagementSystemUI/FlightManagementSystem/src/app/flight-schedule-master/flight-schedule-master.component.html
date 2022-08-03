@@ -1,1 +1,91 @@
-<p>flight-schedule-master works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" (click)="ToggleDisplay('AddSchedule')" style="cursor: pointer;">Add Schedule</a>
+              </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  style="cursor: pointer;">Search Schedule</a>
+          </li>
+        </ul>
+        <!-- <span class="navbar-text">
+          Navbar text with an inline element
+        </span> -->
+      </div>
+    </div>
+  </nav>
+
+  <div class="row g-3 py-4">
+    <h2 style="text-align: center;">Search for schedules</h2>
+      </div>
+
+
+    
+<form class="row g-3">
+   
+    <div></div>
+      <div class="col-md-6">
+        <label class="form-label">Source</label>
+        <select [(ngModel)]="sourceLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+          <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Destination</label>
+        <select [(ngModel)]="destinationLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+          <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+        </select>
+      </div>
+      <div></div>
+      <div class="col-md-2">
+        <label class="form-label">Schedule date</label>
+        <input type="date" name="scheduleDate" [(ngModel)]="scheduleDate" class="form-control">
+      </div>
+      <div></div>
+      <div class="col-md-2">
+        <button type="submit" (click)="SearchSchedule()" class="btn btn-success" >{{"Search Schedule"}}</button>
+    </div>
+  </form>
+
+
+
+  <div *ngIf="showNoResultsFound">
+    <h1 style="text-align: center;">No Schedules found</h1>
+  </div>
+
+  <div *ngIf="scheduleResults.length > 0">
+<h1 style="text-align: center;">Search Results</h1>
+
+<div class="table-wrapper">
+<table style="height: 1000px;overflow: auto;" class="table caption-top table-dark table-striped table-hover">
+  <thead>
+      <tr>
+          <th>AirLine  </th>
+          <th>Source </th>
+          <th>Destination</th>
+          <th>Detparture Date</th>
+          <th>Arrival Date</th>
+          <th>Detparture Time</th>
+          <th>Arrival Time</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let schedule of scheduleResults">
+        <td><div style="width: 100px;" class="text-truncate py-4" title="{{schedule.airlineName}}">{{schedule.airlineName}}</div></td>
+        <td><div style="width: 100px;" class="text-truncate py-4" title="{{schedule.sourceName}}">{{schedule.sourceName}}</div></td>
+          <td><div style="width: 130px;" class="text-truncate py-4" title ="{{schedule.destinationName}}">{{schedule.destinationName}}</div></td>
+          <td><div style="width: 130px;" class="text-truncate py-4" title ="{{schedule.departureDate |date :'dd-MM-yyyy'}}">{{schedule.departureDate |date :'dd-MM-yyyy'}}</div></td>
+          <td><div style="width: 130px;" class="text-truncate py-4" title ="{{schedule.arivalDate |date :'dd-MM-yyyy'}}">{{schedule.arivalDate |date :'dd-MM-yyyy'}}</div></td>
+          <td><div style="width: 130px;" class="text-truncate py-4" title ="{{schedule.departureTime}}">{{schedule.departureTime}}</div></td>
+          <td><div style="width: 130px;" class="text-truncate py-4" title ="{{schedule.arrivalTime}}">{{schedule.arrivalTime}}</div></td>
+          <!-- <td><div class="py-4"><input type="button" class="btn btn-info" (click)="DisplayScheduleDetails(schedule)" value="Schedule Details"/></div></td> -->
+      </tr>
+  </tbody>
+</table>
+  </div>
+</div>

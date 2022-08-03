@@ -9,7 +9,7 @@ namespace FlightManagementMicroService.DataAccessLayerInterfaces
 {
    public interface IFlightScheduleDataAccessLayerService
     {
-        List<FlightSchedule> getAllFlightSchedule();
+        List<FlightScheduleViewModelcs> getAllFlightSchedule();
         bool AddFlightSchedule(FlightSchedule userMasterViewModel);
         bool UpdateFlightSchedule(FlightScheduleViewModelcs userMasterViewModel);
         List<FindFlightsScheduleViewModel> FindFlightSchedule(FindFlightsScheduleViewModel findFlightsScheduleViewModel);

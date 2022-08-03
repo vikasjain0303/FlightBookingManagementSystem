@@ -9,7 +9,7 @@ namespace FlightManagementMicroService.BusinessLayerInterfaces
 {
    public  interface IFlightScheduleBusinessLayerService
     {
-        List<FlightSchedule> getAllFlightSchedule();
+        List<FlightScheduleViewModelcs> getAllFlightSchedule();
         bool AddFlightSchedule(FlightScheduleViewModelcs userMasterViewModel);
         bool UpdateFlightSchedule(FlightScheduleViewModelcs userMasterViewModel);
         bool DeleteFlightSchedule(int AirLineId);

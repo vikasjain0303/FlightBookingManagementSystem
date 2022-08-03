@@ -15,12 +15,31 @@ namespace FlightManagementMicroService.DataAccessLayer
         {
             this.db = _db;
         }
-        public List<FlightMaster> getAllFlight()
+        public List<FlightMasterViewModel> getAllFlight()
         {
-            List<FlightMaster> userlist = new List<FlightMaster>();
-            userlist = db.FlightMasters.Where(x => x.IsActive == true).ToList();
-            // userlist= db.UserMasters.ToList();
-            return userlist;
+            try
+            {
+                List<FlightMasterViewModel> flightmasterList = new List<FlightMasterViewModel>();
+                var flights = db.FlightMasters.Where(x => x.IsActive == true).ToList();
+
+                foreach (var flight in flights)
+                {
+                    FlightMasterViewModel flightMaster = new FlightMasterViewModel();
+                    flightMaster.FlightId = flight.FlightId;
+                    flightMaster.FlightCode = flight.FlightCode;
+                    flightMaster.AirlineId = flight.AirlineId;
+                    flightMaster.AirLineName = db.AirLineMasters.Where(z => z.AirlineId == flight.AirlineId).Select(z => z.AirlineName).FirstOrDefault();
+                    flightMaster.InstrumentId = flight.InstrumentId;
+                    flightMaster.InstrumentTypeName = db.InstrumentTypeMasters.Where(z => z.InstrumentId == flight.InstrumentId).Select(z => z.InstrumentName).FirstOrDefault();
+                    flightmasterList.Add(flightMaster);
+                }
+                // userlist= db.UserMasters.ToList();
+                return flightmasterList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         public bool AddFlight(FlightMasterViewModel userMasterViewModel)
         {

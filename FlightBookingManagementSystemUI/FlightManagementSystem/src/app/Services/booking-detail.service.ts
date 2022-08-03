@@ -1,3 +1,4 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class BookingDetailService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  private _baseUrl = "https://localhost:44380/api/Booking"
+
+  GetTicketPnrHistory(pnrNumber:string)
+  {
+    let queryparams=new HttpParams()
+    queryparams=queryparams.append("pnrnumber",pnrNumber);
+    return this.http.get(this._baseUrl+"/findbookingpnr" , {params:queryparams});
+  }
 }

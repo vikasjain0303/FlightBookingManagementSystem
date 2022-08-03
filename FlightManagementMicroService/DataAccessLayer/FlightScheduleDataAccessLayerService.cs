@@ -16,12 +16,40 @@ namespace FlightManagementMicroService.DataAccessLayer
             this.db = _db;
         }
 
-        public List<FlightSchedule> getAllFlightSchedule()
+        public List<FlightScheduleViewModelcs> getAllFlightSchedule()
         {
-            List<FlightSchedule> userlist = new List<FlightSchedule>();
-            userlist = db.FlightSchedules.Where(x => x.IsActive == true).ToList();
+            List<FlightScheduleViewModelcs> flightSchedules = new List<FlightScheduleViewModelcs>();
+            var userlist = db.FlightSchedules.Where(x => x.IsActive == true).ToList();
+
+            foreach (var flight in userlist)
+            {
+                FlightScheduleViewModelcs flightScheduleView = new FlightScheduleViewModelcs();
+                flightScheduleView.FlightScheduleId = flight.FlightScheduleId;
+                flightScheduleView.FlightId = flight.FlightId;
+                flightScheduleView.FlightCode = db.FlightMasters.Where(x => x.FlightId == flight.FlightId).Select(x => x.FlightCode).FirstOrDefault();
+                 flightScheduleView.AirlineName=   db.AirLineMasters.Where(z => db.FlightMasters.Any(x=> x.FlightId == flight.FlightId && z.AirlineId == x.AirlineId)).Select(z => z.AirlineName).FirstOrDefault();
+                flightScheduleView.SourceId = flight.SourceId;
+                flightScheduleView.SourceName = db.AirportMasters.Where(x => x.AirportId == flight.SourceId).Select(x => x.AirportName).FirstOrDefault();
+                flightScheduleView.DestinationName= db.AirportMasters.Where(x => x.AirportId == flight.DestinationId).Select(x => x.AirportName).FirstOrDefault();
+                //flight.Flight.FlightCode = db.FlightMasters.Where(x => x.FlightId == flight.FlightId).Select(x=>x.FlightCode).FirstOrDefault();
+                flightScheduleView.DestinationId = flight.DestinationId;
+                flightScheduleView.StartDate = flight.StartDate.Value.Date;
+                flightScheduleView.EndDate = flight.EndDate.Value.Date;
+                flightScheduleView.WeekdaysIds = flight.WeekdaysIds;
+                flightScheduleView.IsActive = flight.IsActive;
+                var weekdayids = Array.ConvertAll(flight.WeekdaysIds.Split(","), int.Parse);
+                 var weekdays = "";
+                for (int week=0;week< weekdayids.Length;week++)
+                {
+                    var weekday= db.WeekDayMasters.Where(x => x.WeekDayId == weekdayids[week]).Select(x => x.WeekdayName).FirstOrDefault();
+
+                    weekdays =weekdays+ weekday+"," ;
+                }
+                flightScheduleView.WeekdaysNames = weekdays;
+                flightSchedules.Add(flightScheduleView);
+            }
             // userlist= db.UserMasters.ToList();
-            return userlist;
+            return flightSchedules;
         }
         public bool AddFlightSchedule(FlightSchedule userMasterViewModel)
         {
@@ -99,10 +127,11 @@ namespace FlightManagementMicroService.DataAccessLayer
                     findFlightsScheduleView.FlightId = scheduledata.Where(x => x.FlightScheduleId == (item.FlightScheduleId ?? default(int))).Select(x => x.FlightId).FirstOrDefault(); ;
                     findFlightsScheduleView.SourceName = db.AirportMasters.Where(x=> scheduledata.Any(y=>(y.SourceId ?? default(int)) == x.AirportId && y.FlightScheduleId== (item.FlightScheduleId ?? default(int)))).Select(x=>x.AirportName).FirstOrDefault();
                     findFlightsScheduleView.DestinationName = db.AirportMasters.Where(x => scheduledata.Any(y => (y.DestinationId ?? default(int)) == x.AirportId && y.FlightScheduleId == (item.FlightScheduleId ?? default(int)))).Select(x => x.AirportName).FirstOrDefault(); ;
-                    findFlightsScheduleView.DepartureDate = item.DepartureDate;
-                    findFlightsScheduleView.ArivalDate = item.ArivalDate;
+                    findFlightsScheduleView.DepartureDate = item.DepartureDate.Value.Date;
+                    findFlightsScheduleView.ArivalDate = item.ArivalDate.Value.Date;
                     findFlightsScheduleView.ArrivalTime = item.ArrivalTime;
                     findFlightsScheduleView.DepartureTime = item.DepartureTime;
+                    
                     findFlightsScheduleView.FlightCode = db.FlightMasters.Where(x => scheduledata.Any(y => (y.FlightId ?? default(int)) == x.FlightId && y.FlightScheduleId == (item.FlightScheduleId ?? default(int)))).Select(x => x.FlightCode).FirstOrDefault();
                     findFlightsScheduleView.AirlineName = db.AirLineMasters.Where(x => db.FlightMasters.Any(y => (y.AirlineId ?? default(int)) == x.AirlineId && scheduledata.Any(z =>( z.FlightId ?? default(int)) == y.FlightId && z.FlightScheduleId == (item.FlightScheduleId ?? default(int))))).Select(x => x.AirlineName).FirstOrDefault();
 

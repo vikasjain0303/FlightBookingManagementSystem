@@ -9,7 +9,7 @@ namespace FlightManagementMicroService.BusinessLayerInterfaces
 {
    public interface IFlightBusinessLayerService
     {
-        List<FlightMaster> getAllFlight();
+        List<FlightMasterViewModel> getAllFlight();
         bool AddFlight(FlightMasterViewModel userMasterViewModel);
         bool UpdateFlight(FlightMasterViewModel userMasterViewModel);
         bool DeleteFlight(int AirLineId);

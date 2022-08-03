@@ -9,7 +9,7 @@ namespace FlightManagementMicroService.DataAccessLayerInterfaces
 {
    public interface IFlightDataAccessLayerService
     {
-        List<FlightMaster> getAllFlight();
+        List<FlightMasterViewModel> getAllFlight();
         bool AddFlight(FlightMasterViewModel userMasterViewModel);
         bool UpdateFlight(FlightMasterViewModel userMasterViewModel);
     }

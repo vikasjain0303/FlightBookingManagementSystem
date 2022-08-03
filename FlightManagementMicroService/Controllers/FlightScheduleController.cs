@@ -22,9 +22,9 @@ namespace FlightManagementMicroService.Controllers
         }
 
         [HttpGet("getall")]
-        public async Task<ActionResult<List<FlightSchedule>>> getAllFlightScheduleDetails()
+        public async Task<ActionResult<List<FlightScheduleViewModelcs>>> getAllFlightScheduleDetails()
         {
-            List<FlightSchedule> userlist = new List<FlightSchedule>();
+            List<FlightScheduleViewModelcs> userlist = new List<FlightScheduleViewModelcs>();
 
             userlist = _IflightScheduleBusinessLayerService.getAllFlightSchedule();
             // var jsonresult = JsonSerializer.Serialize(userlist);

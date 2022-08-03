@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +13,16 @@ import { DiscountMasterComponent } from './discount-master/discount-master.compo
 import { FlightMasterComponent } from './flight-master/flight-master.component';
 import { FlightScheduleMasterComponent } from './flight-schedule-master/flight-schedule-master.component';
 import { UserMasterComponent } from './user-master/user-master.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AirportService } from './Services/airport.service';
+import { AddAirportComponent } from './add-airport/add-airport.component';
+import { AddAirLineComponent } from './add-air-line/add-air-line.component';
+import { AirlineService } from './Services/airline.service';
+import { AddFlightComponent } from './add-flight/add-flight.component';
+import { FlightService } from './Services/flight.service';
+import { AddscheduleComponent } from './addschedule/addschedule.component';
+import { FlightScheduleService } from './Services/flight-schedule.service';
+import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +33,22 @@ import { UserMasterComponent } from './user-master/user-master.component';
     DiscountMasterComponent,
     FlightMasterComponent,
     FlightScheduleMasterComponent,
-    UserMasterComponent
+    UserMasterComponent,
+    AddAirportComponent,
+    AddAirLineComponent,
+    AddFlightComponent,
+    AddscheduleComponent,
+    SearchTicketPnrComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AirportService, AirlineService,FlightService,FlightScheduleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
