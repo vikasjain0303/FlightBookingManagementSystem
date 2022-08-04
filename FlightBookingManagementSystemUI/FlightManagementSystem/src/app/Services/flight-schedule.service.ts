@@ -24,4 +24,8 @@ export class FlightScheduleService {
     // this.destinationId=destinationLocationId
     return this.http.get<any>(this._baseUrl + "/find", {params:queryparams});
   }
+  AddScheduleInventory(scheduleRequest:any)
+  {
+    return this.http.post(this._baseUrl + "/add", scheduleRequest);
+  }
 }

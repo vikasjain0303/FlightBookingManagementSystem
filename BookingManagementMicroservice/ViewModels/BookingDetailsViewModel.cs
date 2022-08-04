@@ -23,9 +23,15 @@ namespace BookingManagementMicroservice.ViewModels
         public int? AirLineId { get; set; }
         public int? SourceId { get; set; }
         public int? DestinationId { get; set; }
+        public string AirLineName { get; set; }
+        public string SourceName { get; set; }
+        public string DestinationName { get; set; }
+
+        public DateTime? JourneyDate { get; set; }
         public int? FlightScheduleDayId { get; set; }
         public DateTime? BookingDatetime { get; set; }
         public int? SeatTypeId { get; set; }
+        public string SeatTypeName { get; set; }
 
         public decimal? TotalPrice { get; set; }
         //public int? CreatedBy { get; set; }

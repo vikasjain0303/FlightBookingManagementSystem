@@ -16,4 +16,10 @@ export class BookingDetailService {
     queryparams=queryparams.append("pnrnumber",pnrNumber);
     return this.http.get(this._baseUrl+"/findbookingpnr" , {params:queryparams});
   }
+  GetTicketByEmailHistory(emailId:string)
+  {
+    let queryparams=new HttpParams()
+    queryparams=queryparams.append("useremailid",emailId);
+    return this.http.get(this._baseUrl+"/bookinghistory" , {params:queryparams});
+  }
 }

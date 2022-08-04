@@ -11,7 +11,9 @@ namespace BookingManagementMicroservice.ViewModels
         public int? BookingId { get; set; }
         public string PassengerName { get; set; }
         public int? GenderId { get; set; }
+        public string GenderType { get; set; }
         public int? MealTypeId { get; set; }
+        public string MealType { get; set; }
         public int? SeatNo { get; set; }
         public bool? IsActive { get; set; }
     }

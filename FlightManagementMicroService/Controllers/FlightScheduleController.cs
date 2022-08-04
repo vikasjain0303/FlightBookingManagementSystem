@@ -38,7 +38,7 @@ namespace FlightManagementMicroService.Controllers
                 var result = _IflightScheduleBusinessLayerService.AddFlightSchedule(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("FlightsSchedule added Successfully");
+                    return Ok();
 
                 }
                 else

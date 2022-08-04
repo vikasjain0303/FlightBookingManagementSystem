@@ -8,6 +8,7 @@ import { AirPortMasterComponent } from './air-port-master/air-port-master.compon
 import { AirlineMasterComponent } from './airline-master/airline-master.component';
 import { FlightMasterComponent } from './flight-master/flight-master.component';
 import { FlightScheduleMasterComponent } from './flight-schedule-master/flight-schedule-master.component';
+import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/search-ticket-by-email-id.component';
 import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.component';
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'searchSchedule', component: FlightScheduleMasterComponent },
   {path:'AddSchedule', component:AddscheduleComponent},
   {path:'searchticketbypnr', component:SearchTicketPnrComponent},
+  {path:'searchticketbyemailId', component:SearchTicketByEmailIdComponent},
+
 ];
 
 @NgModule({

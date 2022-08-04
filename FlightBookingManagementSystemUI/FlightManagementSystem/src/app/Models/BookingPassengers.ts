@@ -5,7 +5,9 @@ export class BookingPassengers {
     genderId:number=0;
     genderType:string="";
     passengerAge:number=0;
-    seatNo:string="";
-    isBusinessSeat:boolean=false;
-    isRegularSeat:boolean=false;
+    mealType:string="";
+    seatNo:any;
+    MealTypeId:number=0;
+
+    
 }

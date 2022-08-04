@@ -1,13 +1,13 @@
 <div class = "row g-3 py-4">
     <h2 style="text-align: center;">Booking History</h2>
     <div class="col-md-6">
-        <label class="form-label">PNR Number</label>
-        <input [(ngModel)]="pnrNumber" maxlength="100" class="form-control" type="text" />
-        <p style="color: red;" [hidden]="pnrNumber != ''"> Please enter the PNR Number</p>
+        <label class="form-label">EmailId</label>
+        <input [(ngModel)]="emailId" maxlength="100" class="form-control" type="text" />
+        <p style="color: red;" [hidden]="emailId != ''"> Please enter the EmailId Number</p>
     </div>
     <div></div>
     <div class="col-md-4">
-        <input type="submit" (click)="GetTicketHistory()" [disabled]="pnrNumber == ''" class="btn btn-success" value="Search Booking"/>
+        <input type="submit" (click)="GetTicketHistory()" [disabled]="emailId == ''" class="btn btn-success" value="Search Booking"/>
     </div>
     </div>
   

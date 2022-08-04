@@ -47,24 +47,25 @@ SetNoResultFound()
 
 ViewTicketDetails()
 {
-   let modalText = "PNR Number: " + this.ticketHistory.mealPlanId + "\nContact no: " + this.ticketHistory.contactNo
+   let modalText = "PNR Number: " + this.ticketHistory.pnrNumber 
+   + "\nContact no: " + this.ticketHistory.contactNo
    +"\nCustomer address: " + this.ticketHistory.address
-   +"\nBooked On: " + (new Date(this.ticketHistory.bookingDatetime)).toLocaleString()
-   +"\nTravel Date: " + (new Date(this.ticketHistory.travelDate)).toLocaleString()
-   +"\nSource Location: " + this.ticketHistory.sourceLocation
-   +"\nDestination Location: " + this.ticketHistory.destinationLocation
-   +"\nIsCancelled: " + this.ticketHistory.isCancelled
-   +"\nMeal plan selected: " + this.ticketHistory.mealPlanType
+   +"\nBooked On: " +  (new Date(this.ticketHistory.bookingDatetime)).toLocaleString()
+   +"\nTravel Date: " + (new Date(this.ticketHistory.journeyDate)).toLocaleString()
+   +"\nSource Location: " + this.ticketHistory.sourceName
+   +"\nDestination Location: " + this.ticketHistory.destinationName
+   +"\nIsBooked: " + this.ticketHistory.isActive
+   +"\n SeatType: " + this.ticketHistory.seatTypeName
    +"\n\nBooking Passenger Details";
 
    for(let i = 0; i < this.ticketHistory.passengerDetails.length; i++)
    {
-     let seatType = this.ticketHistory.passengerDetails[i].isBusinessSeat ? "Business" : "Regular"
+     //let seatType = this.ticketHistory.passengerDetails[i].MealTypeId ? "Business" : "Regular"
      modalText = modalText + "\n\nPassenger Name: " + this.ticketHistory.passengerDetails[i].passengerName
-     +"\nPassenger Age: " + this.ticketHistory.passengerDetails[i].passengerAge
+     //+"\nPassenger Age: " + this.ticketHistory.passengerDetails[i].passengerAge
      +"\nPassenger Gender: " + this.ticketHistory.passengerDetails[i].genderType
-     +"\nSeat No: " + this.ticketHistory.passengerDetails[i].seatNo
-     +"\nSeat Type: " + seatType;
+     +"\nSeat No: " + this.ticketHistory.passengerDetails[i].seatNo;
+     //+"\nSeat Type: " + this.ticketHistory.passengerDetails[i].mealType;
    }
 
    this.DisplayModalPopup("Ticket Details", modalText);

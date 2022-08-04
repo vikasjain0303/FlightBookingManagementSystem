@@ -1,1 +1,143 @@
-<p>addschedule works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" style="cursor: pointer;">Add Schedule</a>
+              </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="ToggleDisplay('ManageSchedule')" style="cursor: pointer;">Search Schedule</a>
+          </li>
+        </ul>
+        <!-- <span class="navbar-text">
+          Navbar text with an inline element
+        </span> -->
+      </div>
+    </div>
+  </nav>
+
+  <div class="row g-3 py-4">
+    <h2 style="text-align: center;">Add schedule</h2>
+      </div>
+
+      <form [formGroup]="AddSchedule.formFlightScheduleAddGroup" class="row g-3">
+        
+        <div class="col-md-6">
+          <label class="form-label">Flight Code</label>
+          <select [(ngModel)]="flightSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+            <option *ngFor="let flight of flights" [ngValue]="flight">{{flight.flightCode}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Source</label>
+            <select [(ngModel)]="sourceLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+              <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Destination</label>
+            <select [(ngModel)]="destinationLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+              <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Start Date</label>
+            <input type="datetime-local" formControlName="startDateControl" min="{{today}}" [(ngModel)]="AddSchedule.startDate" class="form-control">
+            <p style="color:red" [hidden]="!(HasError('required','startDateControl'))">Start date is required</p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">End Date</label>
+            <input type="datetime-local" formControlName="endDateControl" min="{{today}}" [(ngModel)]="AddSchedule.endDate" class="form-control">
+            <p style="color:red" [hidden]="!(HasError('required','endDateControl'))">End date is required</p>
+          </div>
+          <div class="col-md-6">
+            <label  class="form-label">Instrument Used</label>
+            <select [(ngModel)]="instrumentTypeSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+              <option *ngFor="let instrument of instrumentTypes" [ngValue]="instrument">{{instrument.instrumentName}}</option>
+            </select>
+          </div>
+
+          <div></div>
+          <div class="col-md-4">
+            <label class="form-label">Total Business class seats</label>
+            <input type="text" formControlName="totalSeatBusinessClassControl" [(ngModel)]="AddSchedule.totalSeatBusinessClass" class="form-control">
+            <p style="color:red" [hidden]="!(HasError('required','totalSeatBusinessClassControl'))">Business seat no is required</p>
+            <p style="color:red" [hidden]="!(HasError('pattern','totalSeatBusinessClassControl'))">Please enter numeric values only</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Total Regular class seats</label>
+            <input type="text" [(ngModel)]="AddSchedule.totalSeatRegularClass" formControlName="totalSeatRegularClassControl" class="form-control">
+            <p style="color:red" [hidden]="!(HasError('required','totalSeatRegularClassControl'))">Regular seat no is required</p>
+            <p style="color:red" [hidden]="!(HasError('pattern','totalSeatRegularClassControl'))">Please enter numeric values only</p>
+          </div>
+          
+          <div class="col-md-4">
+            <label  class="form-label">Number of rows</label>
+            <input type="text" [(ngModel)]="AddSchedule.rowNo" formControlName="rowNoControl" class="form-control">
+            <p style="color:red" [hidden]="!(HasError('required','rowNoControl'))">Row No is required</p>
+            <p style="color:red" [hidden]="!(HasError('pattern','rowNoControl'))">Please enter numeric values only</p>
+            </div>
+            
+                <div class="col-md-4">
+                    <label  class="form-label">Meal Type</label>
+                    <select [(ngModel)]="mealTypeSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+                      <option *ngFor="let meal of mealTypes" [ngValue]="meal">{{meal.mealTypeName}}</option>
+                    </select>
+                  </div>
+                  <div></div>
+                  <div class="col-md-4">
+                    <label  class="form-label">Ticket Cost</label>
+                    <input type="text" [(ngModel)]="AddSchedule.ticketCost" formControlName="ticketCostControl" class="form-control">
+                    <p style="color:red" [hidden]="!(HasError('required','ticketCostControl'))">Ticket cost is required</p>
+                    <p style="color:red" [hidden]="!(HasError('pattern','ticketCostControl'))">Please enter numeric values only</p>
+                    </div>
+                  <div class="col-md-12">
+                    <label  class="form-label">Days running on</label>
+                  </div>
+                  <div class="col-md-2">
+                    <input class="form-check-input" (change)="OnRadioOptionChange('Daily')" [checked]="true" type="radio" id="rdoDaily" name="days_running">
+      <label class="form-check-label" for="rdoDaily">Daily</label>
+                  </div>
+                  <div class="col-md-2">
+                    <input class="form-check-input" (change)="OnRadioOptionChange('Weekdays')" type="radio" id="rdoWeekday" name="days_running">
+      <label class="form-check-label" for="rdoWeekday">Weekdays</label>
+                  </div>
+                  <div class="col-md-2">
+                    <input class="form-check-input" (change)="OnRadioOptionChange('Weekends')" type="radio" id="rdoWeekend" name="days_running">
+      <label class="form-check-label" for="rdoWeekend">Weekends</label>
+                  </div>
+                  
+                  <div class="py-4">
+                    <button type="submit" [disabled]="!AddSchedule.formFlightScheduleAddGroup.valid" (click)="AddScheduleData()" class="btn btn-success" >{{"Add Schedule"}}</button>
+                </div>
+                  
+      </form>
+
+
+
+      
+<!-- Button trigger modal -->
+<button id="btnLaunchModal" type="button" style="visibility: hidden;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">{{modalHeader}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      {{modalText}}
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>

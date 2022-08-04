@@ -23,6 +23,7 @@ import { FlightService } from './Services/flight.service';
 import { AddscheduleComponent } from './addschedule/addschedule.component';
 import { FlightScheduleService } from './Services/flight-schedule.service';
 import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.component';
+import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/search-ticket-by-email-id.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.
     AddAirLineComponent,
     AddFlightComponent,
     AddscheduleComponent,
-    SearchTicketPnrComponent
+    SearchTicketPnrComponent,
+    SearchTicketByEmailIdComponent
   ],
   imports: [
     BrowserModule,
