@@ -128,10 +128,16 @@ namespace FlightManagementMicroService.DataAccessLayer
                     findFlightsScheduleView.SourceName = db.AirportMasters.Where(x=> scheduledata.Any(y=>(y.SourceId ?? default(int)) == x.AirportId && y.FlightScheduleId== (item.FlightScheduleId ?? default(int)))).Select(x=>x.AirportName).FirstOrDefault();
                     findFlightsScheduleView.DestinationName = db.AirportMasters.Where(x => scheduledata.Any(y => (y.DestinationId ?? default(int)) == x.AirportId && y.FlightScheduleId == (item.FlightScheduleId ?? default(int)))).Select(x => x.AirportName).FirstOrDefault(); ;
                     findFlightsScheduleView.DepartureDate = item.DepartureDate.Value.Date;
+                    findFlightsScheduleView.Journeydate = item.DepartureDate.Value.Date;
                     findFlightsScheduleView.ArivalDate = item.ArivalDate.Value.Date;
                     findFlightsScheduleView.ArrivalTime = item.ArrivalTime;
                     findFlightsScheduleView.DepartureTime = item.DepartureTime;
+                    findFlightsScheduleView.VacantSeatBusinessClass = item.VacantSeatBusinessClass;
+                    findFlightsScheduleView.VacantSeatRegularClass = item.VacantSeatRegularClass;
+                    findFlightsScheduleView.TicketCost = item.TicketCost;
+                    findFlightsScheduleView.FlightScheduleDayId = item.FlightScheduleDayId;
                     
+
                     findFlightsScheduleView.FlightCode = db.FlightMasters.Where(x => scheduledata.Any(y => (y.FlightId ?? default(int)) == x.FlightId && y.FlightScheduleId == (item.FlightScheduleId ?? default(int)))).Select(x => x.FlightCode).FirstOrDefault();
                     findFlightsScheduleView.AirlineName = db.AirLineMasters.Where(x => db.FlightMasters.Any(y => (y.AirlineId ?? default(int)) == x.AirlineId && scheduledata.Any(z =>( z.FlightId ?? default(int)) == y.FlightId && z.FlightScheduleId == (item.FlightScheduleId ?? default(int))))).Select(x => x.AirlineName).FirstOrDefault();
 

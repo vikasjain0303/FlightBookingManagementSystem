@@ -4,14 +4,14 @@ export class FlightSearchResultParamaters {
     flightDateTime:any;
     flightNumber:string=""
     
-    cost:any;
+    ticketCost:any;
     mealPlanId:number=0;
-    vacantBusinessSeats:number=0;
-    vacantRegularSeats:number=0;
+    vacantSeatBusinessClass:number=0;
+    vacantSeatRegularClass:number=0;
     isSelected:boolean=false;
 
 
-    flightScheduleId:any;
+    flightScheduleDayId:any;
     flightCode:string
     airlineId:any;
     airlineName:string;

@@ -1,4 +1,6 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { AirportMaster } from '../Models/airportmaster';
 import { BookingPassengerModel } from '../Models/BookingPassenderModel';
@@ -20,7 +22,7 @@ import { CommonService } from '../Services/common.service';
 export class AddBookingComponent implements OnInit {
 
  
-  constructor(private _booking:BookingDetailService,private _airport :AirportService,private commonservice:CommonService) { }
+  constructor(private _router:Router,private _booking:BookingDetailService,private _airport :AirportService,private commonservice:CommonService) { }
 
   ngOnInit(): void {
 
@@ -67,6 +69,7 @@ Address:string="";
 scheduleDate:any;
 sourceLocationId:any;
 destinationLocationId:any;
+flightScheduleDayId:any;
 DisplayModalPopup(modalHeader:string, modaltext:string)
 {
   this.modalHeader = modalHeader;
@@ -77,7 +80,7 @@ DisplayModalPopup(modalHeader:string, modaltext:string)
 BindGender(gender :any)
 {
   this.genders=gender;
-  this.genderSelected=this.genders[0];
+  //this.genderSelected=this.genders[0];
 }
 BindSeatTypes(seat :any)
 {
@@ -121,7 +124,11 @@ SearchFlights()
  
 
 this._booking.SearchFlight(this.scheduleDate, this.sourceLocationId,this.destinationLocationId)
-.subscribe( res => {  this.BindSearchResults(res)},
+.subscribe( res => {
+  console.log(res);
+  this.flightSearchResults.onwardTripResults=res;
+  //this.BindSearchResults(a)
+},
 err => { this.DisplayModalPopup("Error", "An error occurred while searching for flights")});
   
 }
@@ -147,9 +154,9 @@ OnOnwardResultSelect(flight:any)
   }
 
   flight.isSelected = true;
-  this.vacantBusinessOnward = flight.vacantBusinessSeats;
-  this.vacantRegularOnward = flight.vacantRegularSeats;
-
+  this.vacantBusinessOnward = flight.vacantSeatBusinessClass;
+  this.vacantRegularOnward = flight.vacantSeatRegularClass;
+  this.flightScheduleDayId = flight.flightScheduleDayId
   let tempTotalCost = flight.cost;
 
   
@@ -165,7 +172,7 @@ OnPassengerCountChange()
 
   if(selectedIndex >= 0)
   {
-    tempCost = this.flightSearchResults.onwardTripResults[selectedIndex].cost;
+    tempCost = this.flightSearchResults.onwardTripResults[selectedIndex].ticketCost;
   }
 
 
@@ -192,7 +199,7 @@ ContinueBooking()
     return;
   }
 
-  this.isBookingProcessing = true;
+  this.isBookingProcessing = !this.isBookingProcessing;
   
   for(let i = 0; i < Number(this.noOfPassengers); i++)
   {
@@ -202,20 +209,13 @@ ContinueBooking()
     this.bookingPassengers.push(dummyPassenger);
   }
 
-  //this.dummySeatNumbers = this._mock.GenerateDummySeatNumbers();
 
-  // this.isOnwardFlightSelected = this.flightSearchResults.onwardTripResults.findIndex(x => x.isSelected) >=0 ? true : false;
-  // this.isRoundTripSelected = this.isRoundTripSelected && this.flightSearchResults.roundTripResults.findIndex(x => x.isSelected) >=0 ? true : false;
-
-  // if(this.isOnwardFlightSelected)
-  // {
-  //   this.onwardFlightSelected = 
-  // }
-
+  this.isOnwardFlightSelected = this.flightSearchResults.onwardTripResults.findIndex(x => x.isSelected) >=0 ? true : false;
+  
   if(onwardSelectedIndex >= 0)
   {
     this.onwardFlightSelected = this.flightSearchResults.onwardTripResults[onwardSelectedIndex];
-    this.isOnwardFlightSelected = true;
+    this.isOnwardFlightSelected = this.isOnwardFlightSelected;
   }
  
   window.scroll({ top: 0, left: 0, behavior: 'smooth' });
@@ -264,8 +264,11 @@ CheckOutBooking()
          return;
        }
             forkJoin(this._booking.BookFlightTicket(this.GenerateOnwardFlightBookingRequest()))
-      .subscribe(res => { window.alert("Booking created successfully, Redirecting you back to the Home page")},
-      err => {});
+      .subscribe(res => { window.alert("Booking created successfully, Redirecting you back to the AddBooking page"),
+      window.location.reload()
+ // this._router.navigate(['addbooking'])
+    },
+      err => {this.DisplayModalPopup("Error", "An error occurred while adding the Airline schedule inventory")});
      }
      
      
@@ -311,8 +314,9 @@ CheckOutBooking()
          bookingDatetime: this.flightSearchRequest.onwardTripRequest.travelDateTime,
          seatTypeId : this.seatSelected.seatTypeId,
          totalPrice:this.totalBookingCost,
+         flightScheduleDayId:this.flightScheduleDayId,
          isActive: true,
-         bookingPassenger: bookingOnwardPassengerDetails
+         passengerDetails: bookingOnwardPassengerDetails
        }
 
        return onwardFlightBookingRequest;

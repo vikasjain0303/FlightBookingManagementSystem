@@ -38,7 +38,7 @@ namespace BookingManagementMicroservice.Controllers
                 var result = _IbookingDetailsBusinessLayerService.AddBookingDetails(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("Booking done Successfully");
+                    return Ok();
 
                 }
                 else

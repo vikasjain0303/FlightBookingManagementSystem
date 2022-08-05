@@ -1,6 +1,7 @@
 ﻿using FlightManagementMicroService.BusinessLayerInterfaces;
 using FlightManagementMicroService.Models;
 using FlightManagementMicroService.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,6 +32,7 @@ namespace FlightManagementMicroService.Controllers
             return Ok(userlist);
         }
         [HttpPost("add")]
+        [Authorize]
         public async Task<ActionResult<string>> addDiscountDetails(DiscountMasterViewModel userMasterViewModel)
         {
             try

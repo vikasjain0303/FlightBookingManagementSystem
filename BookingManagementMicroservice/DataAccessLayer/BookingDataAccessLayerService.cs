@@ -72,7 +72,7 @@ namespace BookingManagementMicroservice.DataAccessLayer
                 {
                     var vacantseat = db.FlightScheduleDays.Where(x => x.FlightScheduleDayId == userMasterViewModel.FlightScheduleDayId).Select(x => x.VacantSeatBusinessClass).FirstOrDefault();
 
-                    foreach (var passengerDetail in airportmaster.PassengerDetails)
+                    foreach (var passengerDetail in userMasterViewModel.PassengerDetails)
                     {
                         PassengerDetail passengerslist = new PassengerDetail();
                         passengerslist.GenderId = passengerDetail.GenderId;
@@ -180,16 +180,57 @@ namespace BookingManagementMicroservice.DataAccessLayer
                 List<BookingDetailsViewModel> bookingDetailsList = new List<BookingDetailsViewModel>();
 
                 var Userid = db.UserMasters.Where(x => x.IsActive == true && x.EmailId == userEmailId).Select(x => x.UserId).FirstOrDefault();
-                var bookinglist = db.BookingDetails.Where(x => x.UserId == Userid).ToList();
+                var bookinglist = db.BookingDetails.Where(x => x.UserId == Userid && x.IsActive==true).ToList();
 
                 foreach (var booking in bookinglist)
                 {
                     BookingDetailsViewModel bookingDetailsView = new BookingDetailsViewModel();
-                    bookingDetailsView.BookingDatetime = booking.BookingDatetime;
+                    var scheduleday = db.FlightScheduleDays.Where(x => x.FlightScheduleDayId == booking.FlightScheduleDayId).FirstOrDefault()
+; bookingDetailsView.BookingDatetime = booking.CreatedOn.Value.Date;
                     bookingDetailsView.PnrNumber = booking.PnrNumber;
+                    bookingDetailsView.IsActive = booking.IsActive;
                     bookingDetailsView.NoOfSeatsBook = booking.NoOfSeatsBook;
                     bookingDetailsView.SourceId = booking.SourceId;
+                    bookingDetailsView.DestinationId = booking.DestinationId;
+                    bookingDetailsView.TotalPrice = booking.TotalPrice;
+                    bookingDetailsView.SeatTypeId = booking.SeatTypeId;
+                    bookingDetailsView.SeatTypeName = db.SeatTypeMasters.Where(x => x.SeatTypeId == booking.SeatTypeId).Select(x => x.SeatTypeName).FirstOrDefault();
                     bookingDetailsView.AirLineId = booking.AirLineId;
+                    bookingDetailsView.BookingId = booking.BookingId;
+                    bookingDetailsView.Address = booking.Address;
+                    bookingDetailsView.AirLineName = db.AirLineMasters.Where(x => x.AirlineId == booking.AirLineId).Select(x => x.AirlineName).FirstOrDefault();
+                    bookingDetailsView.ContactNo = booking.ContactNo;
+                    bookingDetailsView.FlightScheduleDayId = booking.FlightScheduleDayId;
+                    bookingDetailsView.JourneyDate = scheduleday.DepartureDate.Value.Date;
+                    bookingDetailsView.DestinationName = db.AirportMasters.Where(x => x.AirportId == booking.DestinationId).Select(x => x.AirportName).FirstOrDefault();
+                    bookingDetailsView.SourceName = db.AirportMasters.Where(x => x.AirportId == booking.SourceId).Select(x => x.AirportName).FirstOrDefault();
+
+                    var passengerdetailList = db.PassengerDetails.Where(x => x.BookingId == booking.BookingId).ToList();
+                    if (passengerdetailList.Count != 0)
+                    {
+                        foreach (var passenger in passengerdetailList)
+                        {
+                            PassengerDetailsViewModel passengerslist = new PassengerDetailsViewModel();
+                            passengerslist.GenderId = passenger.GenderId;
+                            passengerslist.GenderType = db.GenderTypeMasters.Where(x => x.GenderId == passenger.GenderId).Select(x => x.GenderType).First();
+                            passengerslist.BookingId = passenger.BookingId;
+                            passengerslist.PassengerName = passenger.PassengerName;
+                            passengerslist.MealTypeId = passenger.MealTypeId;
+                            passengerslist.MealType = db.MealTypeMasters.Where(x => x.MealTypeId == passenger.MealTypeId).Select(x => x.MealTypeName).FirstOrDefault();
+                            passengerslist.SeatNo = passenger.SeatNo;
+                            passengerslist.PassengerId = passenger.PassengerId;
+                            passengerslist.IsActive = passenger.IsActive;
+                            bookingDetailsView.PassengerDetails.Add(passengerslist);
+                        }
+                    }
+
+                    //bookingDetailsView.BookingDatetime = booking.BookingDatetime;
+                    //bookingDetailsView.PnrNumber = booking.PnrNumber;
+                    //bookingDetailsView.NoOfSeatsBook = booking.NoOfSeatsBook;
+                    //bookingDetailsView.SourceId = booking.SourceId;
+                    //bookingDetailsView.AirLineId = booking.AirLineId;
+
+
                     bookingDetailsList.Add(bookingDetailsView);
                 }
                 return bookingDetailsList;

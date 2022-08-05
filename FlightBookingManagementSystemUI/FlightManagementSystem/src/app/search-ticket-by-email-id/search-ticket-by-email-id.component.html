@@ -15,7 +15,7 @@
       <h1 style="text-align: center;">No Bookings found</h1>
     </div>
   
-    <div class="py-4" *ngIf="ticketHistory.bookingId > 0">
+    <div class="py-4" *ngIf="ticketHistoryemailid.length > 0">
       <table class="table caption-top table-dark table-striped table-hover">
           <thead>
               <tr>
@@ -27,13 +27,13 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td><div style="width: 100px;" class="text-truncate py-4" title="{{ticketHistory.bookingDatetime | date}}">{{ticketHistory.bookingDatetime | date }}</div></td>
-                  <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{ticketHistory.airLineName | number}}">{{ticketHistory.airLineName}}</div></td>
-                  <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{ticketHistory.totalPrice | number}}">{{ticketHistory.totalPrice | number}}</div></td>
-                  <td><div style="width: 130px; padding-left: 14%;" class="text-truncate py-4" title ="{{ticketHistory.noOfSeatsBook}}">{{ticketHistory.noOfSeatsBook}}</div></td>
+              <tr *ngFor="let result of ticketHistoryemailid">
+                  <td><div style="width: 100px;" class="text-truncate py-4" title="{{result.bookingDatetime | date}}">{{result.bookingDatetime | date }}</div></td>
+                  <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{result.airLineName }}">{{result.airLineName}}</div></td>
+                  <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{result.totalPrice | number}}">{{result.totalPrice | number}}</div></td>
+                  <td><div style="width: 130px; padding-left: 14%;" class="text-truncate py-4" title ="{{result.noOfSeatsBook}}">{{result.noOfSeatsBook}}</div></td>
                   <td><div class="py-4">
-                      <input type="button" class="btn btn-secondary" value="View Details" (click)="ViewTicketDetails()"/>
+                      <input type="button" class="btn btn-secondary" value="View Details" (click)="ViewTicketDetails(result)"/>
                       </div>
                       </td>
               </tr>

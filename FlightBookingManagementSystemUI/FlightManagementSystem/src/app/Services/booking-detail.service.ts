@@ -41,6 +41,6 @@ export class BookingDetailService {
 
   BookFlightTicket(bookingRequest:any)
   {
-    return this.http.post(this._baseUrl + "/add", bookingRequest);
+    return this.http.post( "https://localhost:44380/api/Booking/add", bookingRequest);
   }
 }

@@ -79,8 +79,8 @@
                 <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.airlineName}}">{{result.airlineName}}</div></td>
 
                 
-                <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.flightNumber}}">{{result.flightNumber}}</div></td>
-                <td><div class="text-truncate py-4" title ="Rs {{result.cost | number}}">Rs {{result.cost | number}}</div></td>
+                <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.flightCode}}">{{result.flightCode}}</div></td>
+                <td><div class="text-truncate py-4" title ="Rs {{result.ticketCost | number}}">Rs {{result.ticketCost | number}}</div></td>
             </tr>
         </tbody>
     </table>
@@ -97,7 +97,7 @@
         </select>
       </div>
 </div>
-
+</div>
 <div *ngIf="(flightSearchResults.onwardTripResults.length > 0) && !isBookingProcessing" class="row g-3">
     <div class="col-md-3">
         <label class="form-label">No of passengers (Max 5)</label>
@@ -146,7 +146,7 @@
                         <td><div class="text-truncate py-4" title ="Rs {{result.cost | number}}">Rs {{result.cost | number}}</div></td> -->
                         <td style="width:16%">
                             <select [(ngModel)]="bookingPassengers[passenger.index].genderId" class="form-select">
-                                <option *ngFor="let gender of genderSelected" [ngValue]="gender.genderId">{{gender.genderType}}</option>
+                                <option *ngFor="let gender of genders" [ngValue]="gender.genderId">{{gender.genderType}}</option>
                               </select>
                         </td>
                     </tr>
