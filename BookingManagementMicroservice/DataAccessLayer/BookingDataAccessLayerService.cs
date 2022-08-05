@@ -110,8 +110,8 @@ namespace BookingManagementMicroservice.DataAccessLayer
                     var airportmaster = db.BookingDetails.Where(x => x.PnrNumber == userMasterViewModel.PnrNumber).FirstOrDefault();
                     // UserMaster userMaster = new UserMaster();
                     // AirLineMaster airlinemaster = new AirLineMaster();
-                    airportmaster.FlightId = userMasterViewModel.FlightId;
-                    airportmaster.DestinationId = userMasterViewModel.DestinationId;
+                    airportmaster.FlightId = userMasterViewModel.FlightId ?? airportmaster.FlightId;
+                    airportmaster.DestinationId = userMasterViewModel.DestinationId ?? airportmaster.DestinationId;
                     airportmaster.SourceId = userMasterViewModel.SourceId ?? airportmaster.SourceId;
                     airportmaster.Address = userMasterViewModel.Address ?? airportmaster.Address;
                     airportmaster.AirLineId = userMasterViewModel.AirLineId ?? airportmaster.AirLineId;

@@ -82,7 +82,7 @@ namespace BookingManagementMicroservice.Controllers
                 var result = _IbookingDetailsBusinessLayerService.DeleteBookingDetails(pnrnumber);
                 if (result == true)
                 {
-                    return Ok("booking cancel Successfully");
+                    return Ok();
 
                 }
                 else

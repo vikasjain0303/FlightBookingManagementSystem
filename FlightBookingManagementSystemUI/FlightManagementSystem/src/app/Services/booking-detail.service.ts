@@ -39,6 +39,13 @@ export class BookingDetailService {
     return this.http.get<any>(url + "/find", {params:queryparams});
   }
 
+  CancelTicket(pnrNumber:string)
+  {
+    let queryparams=new HttpParams()
+    queryparams=queryparams.append("pnrnumber",pnrNumber);
+    return this.http.delete(this._baseUrl+"/delete" , {params:queryparams});
+  }
+
   BookFlightTicket(bookingRequest:any)
   {
     return this.http.post( "https://localhost:44380/api/Booking/add", bookingRequest);

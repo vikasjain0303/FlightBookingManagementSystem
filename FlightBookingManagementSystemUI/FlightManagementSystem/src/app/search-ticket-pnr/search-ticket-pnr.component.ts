@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketHistoryModel } from '../Models/BookingticketHistory';
 import { BookingDetailService } from '../Services/booking-detail.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-search-ticket-pnr',
@@ -70,5 +72,27 @@ ViewTicketDetails()
 
    this.DisplayModalPopup("Ticket Details", modalText);
 }
+
+CancelTicket(tickethistory:any)
+{
+
+  this._ticket.CancelTicket(tickethistory.pnrNumber).subscribe(res => {this.DisplayModalPopup("Success", "Ticket Cancel Successfully")}, err=> {this.DisplayModalPopup("Error", "An error occurred")});
+
+}
+
+public openPDF(): void {
+  let DATA: any = document.getElementById('innerhtml');
+  html2canvas(DATA).then((canvas) => {
+    let fileWidth = 208;
+    let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    const FILEURI = canvas.toDataURL('image/png');
+    let PDF = new jsPDF('p', 'mm', 'a4');
+    let position = 0;
+    PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+    PDF.save('ticketDownload.pdf');
+  });
+
+}
+
 
 }

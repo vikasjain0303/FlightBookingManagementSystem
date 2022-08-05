@@ -16,13 +16,15 @@
     </div>
   
     <div class="py-4" *ngIf="ticketHistory.bookingId > 0">
-      <table class="table caption-top table-dark table-striped table-hover">
+      <table id ="innerhtml" class="table caption-top table-dark table-striped table-hover">
           <thead>
               <tr>
                   <th>Booked On</th>
                   <th style="padding-left: 24px;">Airline Name</th>
                   <th>Total Cost</th>
                   <th>No of seats</th>
+                  <th>Source Name</th>
+                  <th>Desination Name</th>
                   <th>Actions</th>
               </tr>
           </thead>
@@ -31,10 +33,17 @@
                   <td><div style="width: 100px;" class="text-truncate py-4" title="{{ticketHistory.bookingDatetime | date}}">{{ticketHistory.bookingDatetime | date }}</div></td>
                   <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{ticketHistory.airLineName | number}}">{{ticketHistory.airLineName}}</div></td>
                   <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{ticketHistory.totalPrice | number}}">{{ticketHistory.totalPrice | number}}</div></td>
-                  <td><div style="width: 130px; padding-left: 14%;" class="text-truncate py-4" title ="{{ticketHistory.noOfSeatsBook}}">{{ticketHistory.noOfSeatsBook}}</div></td>
+                  <td><div style="width: 130px; padding-left: 5%;" class="text-truncate py-4" title ="{{ticketHistory.noOfSeatsBook}}">{{ticketHistory.noOfSeatsBook}}</div></td>
+                  <td><div style="width: 130px; padding-left: 2%;" class="text-truncate py-4" title ="{{ticketHistory.sourceName }}">{{ticketHistory.sourceName }}</div></td>
+                  <td><div style="width: 130px; padding-left: 5%;" class="text-truncate py-4" title ="{{ticketHistory.destinationName}}">{{ticketHistory.destinationName}}</div></td>
                   <td><div class="py-4">
                       <input type="button" class="btn btn-secondary" value="View Details" (click)="ViewTicketDetails()"/>
-                      </div>
+                     &nbsp;
+                      <input type="button" class="btn btn-secondary" value="Download" (click)="openPDF()" />
+                      &nbsp;
+                      <input type="button" class="btn btn-danger" [hidden]="ticketHistory.isActive==false" value="Cancel" (click)="CancelTicket(ticketHistory)" />
+
+                    </div>
                       </td>
               </tr>
           </tbody>
@@ -61,6 +70,7 @@
        <label style="font-family: 'Courier New', Courier, monospace;" [innerText]="modalText"></label>  
       </div>
       <div class="modal-footer">
+
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
