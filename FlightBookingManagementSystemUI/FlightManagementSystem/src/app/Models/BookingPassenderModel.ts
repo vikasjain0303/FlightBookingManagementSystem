@@ -1,4 +1,4 @@
-export class BookingPassengers {
+export class BookingPassengerModel {
     passengerId:number=0;
     bookingId:number=0;
     passengerName:string="";
@@ -8,5 +8,6 @@ export class BookingPassengers {
     mealType:string="";
     seatNo:any;
     MealTypeId:number=0;
+    index:number=0;
     
 }

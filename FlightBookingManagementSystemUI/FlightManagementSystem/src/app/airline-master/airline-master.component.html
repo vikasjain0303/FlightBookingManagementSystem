@@ -46,7 +46,7 @@
                         *ngIf="!airline.isBlocked" (click)="BlockAirline(airline)"/></span>
                         <span><input type="button" class="btn btn-success"
                         value="Unblock" (click)="UnBlockAirline(airline)" *ngIf="airline.isBlocked" /></span> -->
-                    <span style="padding-left: 4px;"><input type="button" class="btn btn-danger" value="Delete"></span></div>
+                    <span style="padding-left: 4px;"><input type="button" class="btn btn-danger" (click)="RemoveAirline(airline)" value="Delete"></span></div>
                     </td>
             </tr>
         </tbody>
@@ -59,11 +59,11 @@
 
 
 <!-- Button trigger modal -->
-<!-- <button id="btnLaunchModal" type="button" style="visibility: hidden;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-</button> -->
+<button id="btnLaunchModal" type="button" style="visibility: hidden;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+</button> 
 
 <!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -78,4 +78,4 @@
     </div>
   </div>
 </div>
-</div> -->
+</div>

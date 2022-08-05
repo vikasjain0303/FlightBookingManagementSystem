@@ -12,6 +12,8 @@ export class AirlineMasterComponent implements OnInit {
 
   constructor(private _router:Router, private _airline:AirlineService) { }
   AirlinesList:Array<AirlineModel> = new Array<AirlineModel>();
+  modalText:string="";
+modalHeader:string="";
   ngOnInit(): void {
     this.getAirLines();
   }
@@ -33,6 +35,16 @@ export class AirlineMasterComponent implements OnInit {
       this.AirlinesList=data;//console.log(this.allAirport)
     });
   }
-
+  RemoveAirline(airline:AirlineModel)
+{
+  
+  this._airline.RemoveAirline(airline.airlineId).subscribe(res => {this.DisplayModalPopup("Success", "Airline Deleted Successfully"),  this.getAirLines()}, res=> {this.DisplayModalPopup("Error", "An error occurred")});
+}
+DisplayModalPopup(modalHeader:string, modaltext:string)
+{
+  this.modalHeader = modalHeader;
+  this.modalText=modaltext;
+  document.getElementById("btnLaunchModal")?.click();
+}
 
 }

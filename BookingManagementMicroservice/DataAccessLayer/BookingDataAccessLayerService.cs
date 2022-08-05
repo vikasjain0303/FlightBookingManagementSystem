@@ -29,6 +29,8 @@ namespace BookingManagementMicroservice.DataAccessLayer
             try
             {
                 BookingDetail airportmaster = new BookingDetail();
+                //var flightschedule = db.FlightSchedules.Where(x => x.FlightId == userMasterViewModel.FlightId).Select(x => x.FlightScheduleId).ToList();
+               //var scheduledayid= db.FlightScheduleDays.Where(x => x.DepartureDate.Value.Date == userMasterViewModel.BookingDatetime.Value.Date && flightschedule.Any(y=>y==x.FlightScheduleId)).Select(x => x.FlightScheduleDayId).FirstOrDefault();
                 airportmaster.FlightId = userMasterViewModel.FlightId;
                 airportmaster.DestinationId = userMasterViewModel.DestinationId;
                 airportmaster.SourceId = userMasterViewModel.SourceId;
@@ -204,6 +206,7 @@ namespace BookingManagementMicroservice.DataAccessLayer
             BookingDetailsViewModel bookingDetailsView = new BookingDetailsViewModel();
 
            var bookingdetail= db.BookingDetails.Where(x => x.PnrNumber == pnrNumber).FirstOrDefault();
+
             var scheduleday = db.FlightScheduleDays.Where(x => x.FlightScheduleDayId == bookingdetail.FlightScheduleDayId).FirstOrDefault()
 ;            bookingDetailsView.BookingDatetime = bookingdetail.CreatedOn.Value.Date;
             bookingDetailsView.PnrNumber = bookingdetail.PnrNumber;

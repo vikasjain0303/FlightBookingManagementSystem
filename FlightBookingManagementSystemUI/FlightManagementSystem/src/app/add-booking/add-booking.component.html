@@ -1,0 +1,178 @@
+<div class="row g-3 py-4">
+    <h2 style="text-align: center;">Book Flight</h2>
+      </div>
+
+      <form *ngIf="!isBookingProcessing" class="row g-3">
+          
+        
+          <div class="col-md-6">
+              
+            <label class="form-label">From</label>
+            <select [(ngModel)]="sourceLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+                <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+              </select>
+        
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">To</label>
+            <select [(ngModel)]="destinationLocationSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+                <option *ngFor="let location of locations" [ngValue]="location">{{location.airportName}}</option>
+              </select>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="col-md-4">
+                <label class="form-label"><b> Journey Date</b></label>
+                <input type="date" name="scheduleDate" [(ngModel)]="flightSearchRequest.onwardTripRequest.travelDateTime" [ngModelOptions]="{standalone: true}" class="form-control">
+                <!-- <input type="datetime-local"  min="{{today}}" [(ngModel)]="flightSearchRequest.onwardTripRequest.travelDateTime" [ngModelOptions]="{standalone: true}" class="form-control"> -->
+                <!-- <p style="color:red" [hidden]="!(HasError('required','startDateControl'))">Start date is required</p> -->
+              </div>
+              
+            </div>
+        
+       
+            <div>
+                <button type="submit" class="btn btn-success" (click)="SearchFlights()" >{{"Search Flights"}}</button>
+            </div>
+</form>
+
+<!-- Button trigger modal -->
+<button id="btnLaunchModal" type="button" style="visibility: hidden;" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{modalHeader}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{modalText}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="!isBookingProcessing" class="row g-3">
+    <div class="py-4 col-md-6" *ngIf="isSearchClicked && flightSearchResults.onwardTripResults.length == 0">
+        <h1>No Flights found</h1>
+    </div>
+<div class="col-md-6 py-4" *ngIf="flightSearchResults.onwardTripResults.length > 0">
+    <h1 style="text-align: center;">Onward trip Flight Results</h1>
+    <table class="table caption-top table-dark">
+        <thead>
+            <tr>
+                <th>Airline Name</th>
+                <th>Flight Number</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr (click)="OnOnwardResultSelect(result)" *ngFor="let result of flightSearchResults.onwardTripResults" [ngClass]="{'table-active': result.isSelected}">
+                <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.airlineName}}">{{result.airlineName}}</div></td>
+
+                
+                <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.flightNumber}}">{{result.flightNumber}}</div></td>
+                <td><div class="text-truncate py-4" title ="Rs {{result.cost | number}}">Rs {{result.cost | number}}</div></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="col-md-6">
+        <label  class="form-label">Vacant Business seats: {{vacantBusinessOnward}}</label>
+        <label  class="form-label">Vacant Regular seats: {{vacantRegularOnward}}</label>
+    </div>
+
+    <div class="col-md-4">
+        <label  class="form-label">Meal Preference</label>
+        <select [(ngModel)]="mealTypeSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+          <option *ngFor="let meal of mealTypes" [ngValue]="meal">{{meal.mealTypeName}}</option>
+        </select>
+      </div>
+</div>
+
+<div *ngIf="(flightSearchResults.onwardTripResults.length > 0) && !isBookingProcessing" class="row g-3">
+    <div class="col-md-3">
+        <label class="form-label">No of passengers (Max 5)</label>
+        <input type="number" max="5" (change)="OnPassengerCountChange()"  [(ngModel)]="noOfPassengers" class="form-control">
+        <!-- <p style="color:red" [hidden]="!(HasError('required','flightNumberControl'))">Flight No is required</p> -->
+      </div>
+      <div></div>
+      <div class="col-md-12">
+          <div class="col-md-4">
+            <label class="form-label"><b>Total Price: Rs </b></label><span> <b>{{ totalBookingCost | number}}</b></span>
+          </div>
+          <div class=col-md-4>
+            <button type="submit" class="btn btn-success" (click)="ContinueBooking()" >{{"Continue Booking"}}</button>
+          </div>
+        
+      </div>
+      
+</div>
+
+
+
+<div *ngIf="isBookingProcessing" class="row g-3 py-4">
+    <div class="col-md-6">
+        <label class="form-label">Customer Contact no</label>
+        <input type="text" [(ngModel)]="ContactNo"  class="form-control">
+        <!-- <p style="color:red" [hidden]="!(HasError('required','flightNumberControl'))">Flight No is required</p> -->
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Customer Address</label>
+        <input type="text" [(ngModel)]="Address" class="form-control">
+        <!-- <p style="color:red" [hidden]="!(HasError('required','flightNumberControl'))">Flight No is required</p> -->
+      </div>
+      <h1 style="text-align: center;"><b>Booking Passenger details</b></h1>
+      <div class="col-md-12">
+          <table class="table caption-top table-dark table-striped table-hover">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let passenger of bookingPassengers">
+                        <td style="width:18%"><input  class="form-control" [(ngModel)]="bookingPassengers[passenger.index].passengerName" type="text" maxlength="50"/></td>
+                        <!-- <td><div style="padding-left: 6%;" class="text-truncate py-4" title ="{{result.flightNumber}}">{{result.flightNumber}}</div></td>
+                        <td><div class="text-truncate py-4" title ="Rs {{result.cost | number}}">Rs {{result.cost | number}}</div></td> -->
+                        <td style="width:16%">
+                            <select [(ngModel)]="bookingPassengers[passenger.index].genderId" class="form-select">
+                                <option *ngFor="let gender of genderSelected" [ngValue]="gender.genderId">{{gender.genderType}}</option>
+                              </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
+
+<div class="row g-3">
+    <div *ngIf="isOnwardFlightSelected" class="col-md-3">
+        <select [(ngModel)]="seatSelected" [ngModelOptions]="{standalone: true}" class="form-select">
+            <option *ngFor="let seat of seats" [ngValue]="seat">{{seat.seatTypeName}}</option>
+          </select>
+      </div>
+    
+
+      <div *ngIf="isOnwardFlightSelected" class="col-md-6">
+        <label  class="form-label">Vacant Business seats: {{vacantBusinessOnward}}</label>
+        <label style="padding-left: 28px"  class="form-label">Vacant Regular seats: {{vacantRegularOnward}}</label>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-4">
+          <label class="form-label"><b>Total Price: Rs </b></label><span> <b>{{ totalBookingCost | number}}</b></span>
+        </div>
+    </div>
+    
+    <div>
+        <button class="col-md-12" type="submit" (click)="CheckOutBooking()" class="btn btn-success"  >{{"Check Out"}}</button>
+    </div>
+</div>

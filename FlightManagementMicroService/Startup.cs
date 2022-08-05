@@ -45,6 +45,8 @@ namespace FlightManagementMicroService
             services.AddScoped<IFlightBusinessLayerService, FlightBusinessLayerService>();
             services.AddScoped<IFlightScheduleBusinessLayerService, FlightScheduleBusinessLayerService>();
             services.AddScoped<IFlightScheduleDataAccessLayerService, FlightScheduleDataAccessLayerService>();
+            services.AddScoped<IDiscountMasterBusinessLayerService, DiscountMasterBusinessLayerService>();
+            services.AddScoped<IDiscountMasterDataAccessLayerServiceInterface, DiscountMasterDataAccessLayerService>();
             services.AddScoped<ICommonDataAccessLayer, CommonDataAccessLayerService>();
 
             services.AddDbContext<FlightBookingDBContext>(x => x.UseSqlServer(Configuration.GetConnectionString("FlightDBConection")));

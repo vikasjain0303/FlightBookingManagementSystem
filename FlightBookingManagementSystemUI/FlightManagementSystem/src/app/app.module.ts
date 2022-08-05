@@ -24,6 +24,10 @@ import { AddscheduleComponent } from './addschedule/addschedule.component';
 import { FlightScheduleService } from './Services/flight-schedule.service';
 import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.component';
 import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/search-ticket-by-email-id.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AddBookingComponent } from './add-booking/add-booking.component';
+import { BookingDetailService } from './Services/booking-detail.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,10 @@ import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/sear
     AddFlightComponent,
     AddscheduleComponent,
     SearchTicketPnrComponent,
-    SearchTicketByEmailIdComponent
+    SearchTicketByEmailIdComponent,
+    RegisterComponent,
+    LoginComponent,
+    AddBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,7 @@ import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/sear
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirportService, AirlineService,FlightService,FlightScheduleService],
+  providers: [AirportService, AirlineService,FlightService,FlightScheduleService,BookingDetailService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

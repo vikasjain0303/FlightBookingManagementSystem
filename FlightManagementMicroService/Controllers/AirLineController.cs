@@ -74,14 +74,14 @@ namespace FlightManagementMicroService.Controllers
             }
         }
         [HttpDelete("delete")]
-        public async Task<ActionResult<string>> deleteAirLineDeatils(int userid)
+        public async Task<ActionResult<string>> deleteAirLineDeatils(int airlineId)
         {
             try
             {
-                var result = _IairLineBusinessLayerService.DeleteAirLine(userid);
+                var result = _IairLineBusinessLayerService.DeleteAirLine(airlineId);
                 if (result == true)
                 {
-                    return Ok("AirLine Deleted Successfully");
+                    return Ok();
 
                 }
                 else
