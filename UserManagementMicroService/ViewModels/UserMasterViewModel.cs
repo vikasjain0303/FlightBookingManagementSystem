@@ -18,6 +18,6 @@ namespace UserManagementMicroService.ViewModels
         public int? CreatedBy { get; set; }
         public DateTime? LastUpdatedOn { get; set; }
         public int? LastUpdatedBy { get; set; }
-        public byte[] PasswordHash { get; internal set; }
+       // public byte[] PasswordHash { get; internal set; }
     }
 }

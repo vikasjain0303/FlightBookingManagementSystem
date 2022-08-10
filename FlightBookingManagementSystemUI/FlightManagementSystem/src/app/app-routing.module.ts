@@ -9,11 +9,16 @@ import { AirPortMasterComponent } from './air-port-master/air-port-master.compon
 import { AirlineMasterComponent } from './airline-master/airline-master.component';
 import { FlightMasterComponent } from './flight-master/flight-master.component';
 import { FlightScheduleMasterComponent } from './flight-schedule-master/flight-schedule-master.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { SearchTicketByEmailIdComponent } from './search-ticket-by-email-id/search-ticket-by-email-id.component';
 import { SearchTicketPnrComponent } from './search-ticket-pnr/search-ticket-pnr.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/airportmasterlist', pathMatch: 'full' },
+  { path: '', redirectTo: '/Register', pathMatch: 'full' },
+  {path:'Register',component:RegisterComponent},
+  {path:'Login',component:LoginComponent},
+
   { path: 'airportmasterlist', component: AirPortMasterComponent },
   {path:'AddAirPort', component:AddAirportComponent},
   { path: 'airLinemasterlist', component: AirlineMasterComponent },
