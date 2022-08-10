@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
+  private _baseurl="https://localhost:44339/api/User";
   constructor(private http:HttpClient, private _router:Router) { }
 
   RegisterUser(request:any)
   {
-    return this.http.post<any>("https://localhost:44339/api/User/AddUser", request);
+    return this.http.post<any>(this._baseurl+"/AddUser", request);
   }
 }

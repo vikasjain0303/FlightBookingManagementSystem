@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AddBookingComponent } from './add-booking/add-booking.component';
 import { BookingDetailService } from './Services/booking-detail.service';
+import { UserService } from './Services/user.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { BookingDetailService } from './Services/booking-detail.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirportService, AirlineService,FlightService,FlightScheduleService,BookingDetailService,],
+  providers: [AirportService, AirlineService,FlightService,FlightScheduleService,BookingDetailService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

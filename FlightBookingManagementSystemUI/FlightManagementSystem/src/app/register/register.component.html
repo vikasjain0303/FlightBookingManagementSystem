@@ -6,7 +6,7 @@
                 <form [formGroup]="registerModel.formRegisterGroup">
                     <div>
                         <label class="form-label">Full Name</label>
-                        <input [(ngModel)]="registerModel.fullName" formControlName="firstNameControl" maxlength="20" class="form-control"
+                        <input [(ngModel)]="registerModel.fullName" formControlName="fullNameControl" maxlength="20" class="form-control"
                             type="text" />
                         <p style="color:red" [hidden]="!(hasError('required','fullNameControl'))">Full Name is mandatory</p>
                     </div>

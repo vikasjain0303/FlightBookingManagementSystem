@@ -37,6 +37,13 @@ namespace UserManagementMicroService
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,6 +84,7 @@ namespace UserManagementMicroService
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseAuthentication();
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 

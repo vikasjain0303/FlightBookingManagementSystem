@@ -41,7 +41,7 @@ namespace UserManagementMicroService.Controllers
                 var result = _IuserBusinessLayerService.Adduser(userMasterViewModel);
                 if (result == true)
                 {
-                    return Ok("User added Successfully");
+                    return Ok();
 
                 }
                 else
