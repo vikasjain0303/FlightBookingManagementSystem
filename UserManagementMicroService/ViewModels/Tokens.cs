@@ -8,5 +8,8 @@ namespace UserManagementMicroService.ViewModels
     public class Tokens
     {
         public string Token { get; set; }
+
+        public int UserId { get; set; }
+        public int? RoleId { get; set; }
     }
 }

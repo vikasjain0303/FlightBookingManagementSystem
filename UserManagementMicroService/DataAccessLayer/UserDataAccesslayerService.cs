@@ -17,7 +17,7 @@ namespace UserManagementMicroService.DataAccessLayer
     public class UserDataAccesslayerService: IUserDataAccessLayerService
     {
 
-        Dictionary<string, string> userRecords;
+       UserMaster userRecords =new UserMaster();
 
         private readonly IConfiguration configuration;
         private readonly FlightBookingDBContext db;
@@ -50,23 +50,24 @@ namespace UserManagementMicroService.DataAccessLayer
                 db.UserMasters.Add(tbllogin);
                 db.SaveChanges();
             }
-            userRecords = db.UserMasters.ToList().ToDictionary(x => x.UserName, x => x.Password);
+            userRecords = db.UserMasters.Where(x => x.UserName==users.UserName && x.Password ==users.Password).FirstOrDefault();
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenkey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-            if (!userRecords.Any(x => x.Key == users.UserName && x.Value == users.Password))
+            if (userRecords==null )
             {
                 return null;
             }
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                new Claim(ClaimTypes.Name,users.UserName)
+                new Claim(ClaimTypes.Name,userRecords.UserName),
+                new Claim(ClaimTypes.Role,userRecords.RoleId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return new Tokens { Token = tokenHandler.WriteToken(token) };
+            return new Tokens { Token = tokenHandler.WriteToken(token), UserId=userRecords.UserId,RoleId=userRecords.RoleId };
         }
 
 

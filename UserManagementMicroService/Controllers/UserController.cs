@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace UserManagementMicroService.Controllers
             this._IuserBusinessLayerService = IuserBusinessLayerService;
         }
 
-        [HttpGet("userdetails")]
+        [HttpGet("userdetails"), Authorize(Roles = "1")]
+       
         public async Task<ActionResult<List<UserMaster>>> UserDetails()
         {
             List<UserMaster> userlist = new List<UserMaster>();
