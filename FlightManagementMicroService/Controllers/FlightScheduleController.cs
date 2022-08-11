@@ -1,6 +1,7 @@
 ﻿using FlightManagementMicroService.BusinessLayerInterfaces;
 using FlightManagementMicroService.Models;
 using FlightManagementMicroService.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,7 +31,7 @@ namespace FlightManagementMicroService.Controllers
             // var jsonresult = JsonSerializer.Serialize(userlist);
             return Ok(userlist);
         }
-        [HttpPost("add")]
+        [HttpPost("add"), Authorize(Roles = "1")]
         public async Task<ActionResult<string>> AddFlightScheduleDetails(FlightScheduleViewModelcs userMasterViewModel)
         {
             try

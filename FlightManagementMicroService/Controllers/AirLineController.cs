@@ -22,7 +22,7 @@ namespace FlightManagementMicroService.Controllers
             this._IairLineBusinessLayerService = IairLineBusinessLayerService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getall"), Authorize(Roles = "1")]
         public async Task<ActionResult<List<AirLineMaster>>> getallAirLineDetails()
         {
             List<AirLineMaster> userlist = new List<AirLineMaster>();
@@ -31,7 +31,7 @@ namespace FlightManagementMicroService.Controllers
             // var jsonresult = JsonSerializer.Serialize(userlist);
             return Ok(userlist);
         }
-        [HttpPost("add")]
+        [HttpPost("add"), Authorize(Roles = "1")]
         public async Task<ActionResult<string>> addAirLineDetails(AirLineMasterViewModel userMasterViewModel)
         {
             try
@@ -73,7 +73,7 @@ namespace FlightManagementMicroService.Controllers
                 return BadRequest(ex);
             }
         }
-        [HttpDelete("delete")]
+        [HttpDelete("delete"), Authorize(Roles = "1")]
         public async Task<ActionResult<string>> deleteAirLineDeatils(int airlineId)
         {
             try

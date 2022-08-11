@@ -13,7 +13,7 @@ import { DiscountMasterComponent } from './discount-master/discount-master.compo
 import { FlightMasterComponent } from './flight-master/flight-master.component';
 import { FlightScheduleMasterComponent } from './flight-schedule-master/flight-schedule-master.component';
 import { UserMasterComponent } from './user-master/user-master.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AirportService } from './Services/airport.service';
 import { AddAirportComponent } from './add-airport/add-airport.component';
 import { AddAirLineComponent } from './add-air-line/add-air-line.component';
@@ -29,6 +29,7 @@ import { LoginComponent } from './login/login.component';
 import { AddBookingComponent } from './add-booking/add-booking.component';
 import { BookingDetailService } from './Services/booking-detail.service';
 import { UserService } from './Services/user.service';
+import { TokenInterceptorService } from './Services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { UserService } from './Services/user.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirportService, AirlineService,FlightService,FlightScheduleService,BookingDetailService,UserService],
+  providers: [ 
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},AirportService, AirlineService,FlightService,FlightScheduleService,BookingDetailService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

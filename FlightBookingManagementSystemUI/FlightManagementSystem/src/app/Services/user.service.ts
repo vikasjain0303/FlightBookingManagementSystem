@@ -14,4 +14,37 @@ export class UserService {
   {
     return this.http.post<any>(this._baseurl+"/AddUser", request);
   }
+
+  loginUser(userDetails:any)
+  {
+    return this.http.post<any>(this._baseurl +"/Login", userDetails);
+  }
+
+  adminLoggedIn()
+  {
+    return !!localStorage.getItem('userRole') && localStorage.getItem('userRole') == '1';
+  }
+
+  userLoggedIn()
+  {
+    return !!localStorage.getItem('userRole') && localStorage.getItem('userRole') == '2';
+  }
+
+
+  isLoggedIn()
+  {
+    return !!localStorage.getItem('token');
+  }
+
+  LogoutUser()
+  {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole')
+    this._router.navigate(['/Home']);
+  }
+
+  GetToken()
+  {
+    return localStorage.getItem('token');
+  }
 }

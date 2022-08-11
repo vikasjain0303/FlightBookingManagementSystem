@@ -43,8 +43,8 @@ Login()
       username:this.loginModel.userName,
       password:this.loginModel.password
     };
-    //  this._auth.loginUser(loginRequest).subscribe(res=>{this.HideSpinner(), localStorage.setItem('token', res.token);
-    // localStorage.setItem('userRole', res.role); this._router.navigate(['/Dashboard'])}
-    //  ,res=>{console.log(res), this.HideSpinner(), this.DisplayModalPopup("Unauthorised", "Authorisation for the user failed!")});
+     this.user.loginUser(loginRequest).subscribe(res=>{ localStorage.setItem('token', res.token);
+     localStorage.setItem('userRole', res.roleId);localStorage.setItem('UserId', res.userId); this._router.navigate(['/Dashboard'])}
+      ,res=>{console.log(res), this.DisplayModalPopup("Unauthorised", "Authorisation for the user failed!")});
   }
 }

@@ -43,6 +43,7 @@ namespace BookingManagementMicroservice.DataAccessLayer
                 // airportmaster.PnrNumber = userMasterViewModel.PnrNumber;
                 airportmaster.TotalPrice = userMasterViewModel.TotalPrice;
                 airportmaster.SeatTypeId = userMasterViewModel.SeatTypeId;
+                airportmaster.UserId = userMasterViewModel.UserId;
                 // airportmaster.PassengerDetails = userMasterViewModel.PassengerDetails;
                 var pnrnumber = PnrGenerator();
                 //if(db.BookingDetails.Where(x=>x.PnrNumber ==pnrnumber))

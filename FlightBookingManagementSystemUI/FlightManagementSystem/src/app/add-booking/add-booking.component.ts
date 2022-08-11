@@ -268,7 +268,7 @@ CheckOutBooking()
       window.location.reload()
  // this._router.navigate(['addbooking'])
     },
-      err => {this.DisplayModalPopup("Error", "An error occurred while adding the Airline schedule inventory")});
+      err => {this.DisplayModalPopup("Error", "Cannot book Ticket")});
      }
      
      
@@ -316,6 +316,7 @@ CheckOutBooking()
          totalPrice:this.totalBookingCost,
          flightScheduleDayId:this.flightScheduleDayId,
          isActive: true,
+         userId:Number(localStorage.getItem('UserId')),
          passengerDetails: bookingOnwardPassengerDetails
        }
 
